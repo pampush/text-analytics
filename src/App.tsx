@@ -4,7 +4,7 @@ import SearchPage from './pages/SearchPage';
 
 function App() {
   return (
-    <div className="app__container">
+    <div className="app">
       <SearchPage />
     </div>
   );

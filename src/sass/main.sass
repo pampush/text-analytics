@@ -1,0 +1,25 @@
+@use './components/searchPage'
+@use './components/searchBox'
+@use './components/resultCard'
+@use 'vars'
+@use 'mixins'
+
+html
+  font-size: 10px
+
+body
+  font-family: 'Roboto', sans-serif
+  box-sizing: border-box
+  background-color: vars.$body-bg-color
+
+*, *:before, *:after
+  box-sizing: inherit
+
+.app
+  min-height: 100vh
+  max-width: vars.$search-width-lg
+  background-color: vars.$search-bg-color
+  margin: 0 auto
+  padding: 2rem 5rem 0 5rem
+  @include mixins.md
+    max-width: vars.$search-width-md

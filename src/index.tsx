@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+import 'normalize.css';
+import './sass/main.sass';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -1,0 +1,38 @@
+@use '../vars'
+
+.card
+  display: grid
+  grid-template-areas: "img title title" "img title title" "img words vowels" "img words vowels"
+  grid-template-columns: 1fr 2fr 2fr
+  grid-template-rows: repeat(4, 1fr)
+  grid-gap: 1rem
+  margin-top: 4rem
+  padding: 2rem 
+  font-size: 3rem
+  font-weight: bold
+  border-radius: 1.5rem
+  &:hover
+    background-color: vars.$search-field-bg-color
+
+.card__img  
+  grid-area: img
+  height: 20rem
+  width: 100%
+  border-radius: 1.5rem
+  padding-right: 1rem 
+  background-color: #666666
+  
+
+.card__title
+  grid-area: title
+
+.card-info
+  display: flex
+  flex-direction: column
+  align-items: center
+ 
+.card__words
+  grid-area: words
+
+.card__vowels
+  grid-area: vowels
