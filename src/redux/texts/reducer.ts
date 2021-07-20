@@ -15,10 +15,15 @@ const reducer: Reducer<TextsState, textsActions> = (state = initialState, action
       return {
         ...state,
         items: [...state.items, action.payload],
+        loading: false,
       };
-
     case Types.RESET_TEXTS:
       return initialState;
+    case Types.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
     default:
       return state;
   }

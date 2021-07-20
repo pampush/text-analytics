@@ -21,6 +21,8 @@ const resetTexts: ActionCreator<resetTextsAction> = () => ({
 });
 
 const fetchText = (id: number) => async (dispatch: Dispatch) => {
+  dispatch(setLoading(true));
+
   const { data: result } = await axios.get<Text, AxiosResponse<Text>>(`${BASE_URL}${id}`, {
     headers: {
       'TMG-Api-Key': '0J/RgNC40LLQtdGC0LjQutC4IQ==',

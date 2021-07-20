@@ -1,7 +1,7 @@
 import React from 'react';
 
 function ResultSkeleton() {
-  return <div></div>;
+  return <div className="card-skeleton"></div>;
 }
 
 export default ResultSkeleton;

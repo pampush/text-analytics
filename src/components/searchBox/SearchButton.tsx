@@ -12,7 +12,7 @@ const _SearchButton = styled.button<_SearchButtonProps>`
   height: 100%;
   font-size: inherit;
   padding: 1.1rem;
-  color: #ececec;
+  color: #5964cc;
   border-radius: 1.5rem;
   cursor: pointer;
   border-style: none;
