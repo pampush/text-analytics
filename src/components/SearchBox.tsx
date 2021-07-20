@@ -1,13 +1,16 @@
 import React from 'react';
 import ErrorsBox from './searchBox/ErrorsBox';
 import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 
 import SearchButton from './searchBox/SearchButton';
 import SearchField from './searchBox/SearchField';
 import { fetchText, resetTexts } from '../redux/texts/actionCreators';
+import { AppState } from '../redux';
 
 function SearchBox() {
-  const dispatch = useDispatch();
+  const dispatch: ThunkDispatch<AppState, void, Action> = useDispatch();
   const [value, setValue] = React.useState<string>('');
   const [errors, setErrors] = React.useState<string[]>([]);
 
@@ -20,14 +23,16 @@ function SearchBox() {
     setValue(text);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const { correct } = validate(value);
     const uniqueTextIds = Array.from(new Set(correct));
 
     dispatch(resetTexts());
-    uniqueTextIds.forEach((id) => {
-      dispatch(fetchText(id));
-    });
+    for (const id of uniqueTextIds) {
+      const text = await dispatch(fetchText(id));
+      console.log(text);
+    }
+
     //const data = dispatch(fetchTexts(Array.from(new Set(correct))));
   };
 
