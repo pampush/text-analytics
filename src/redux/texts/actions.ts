@@ -3,7 +3,7 @@ import { Types, Text } from './types';
 
 export interface addTextAction extends Action {
   type: Types.ADD_TEXT;
-  payload: Text;
+  payload: { text: Text; id: number };
 }
 
 export interface setLoadingAction extends Action {
@@ -14,4 +14,10 @@ export interface setLoadingAction extends Action {
 export interface resetTextsAction extends Action {
   type: Types.RESET_TEXTS;
 }
-export type textsActions = addTextAction | setLoadingAction | resetTextsAction;
+
+export interface setMetaAction extends Action {
+  type: Types.SET_META;
+  payload: { id: number; lang: string; vowels: number; words: number };
+}
+
+export type textsActions = addTextAction | setLoadingAction | resetTextsAction | setMetaAction;

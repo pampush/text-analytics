@@ -7,7 +7,7 @@ interface _SearchButtonProps {
 }
 
 const _SearchButton = styled.button<_SearchButtonProps>`
-  background: #000000;
+  background: #f2f4f8;
   width: 100%;
   height: 100%;
   font-size: inherit;

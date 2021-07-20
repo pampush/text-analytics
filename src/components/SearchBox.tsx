@@ -6,8 +6,11 @@ import { Action } from 'redux';
 
 import SearchButton from './searchBox/SearchButton';
 import SearchField from './searchBox/SearchField';
-import { fetchText, resetTexts } from '../redux/texts/actionCreators';
+import { fetchText, resetTexts, setMetaActionCrator } from '../redux/texts/actionCreators';
 import { AppState } from '../redux';
+import { detectLanguage } from '../services/translateAPI';
+import { countVowels } from '../services/countVowels';
+import { Languages } from '../types';
 
 function SearchBox() {
   const dispatch: ThunkDispatch<AppState, void, Action> = useDispatch();
@@ -30,10 +33,11 @@ function SearchBox() {
     dispatch(resetTexts());
     for (const id of uniqueTextIds) {
       const text = await dispatch(fetchText(id));
-      console.log(text);
-    }
+      const lang: Languages = await detectLanguage(text.text);
+      const vowels = countVowels(text, lang);
 
-    //const data = dispatch(fetchTexts(Array.from(new Set(correct))));
+      dispatch(setMetaActionCrator({ id, lang, vowels, words: 10 }));
+    }
   };
 
   const validate = (
