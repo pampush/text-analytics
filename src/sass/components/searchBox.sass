@@ -1,29 +1,33 @@
 @use '../vars'
-
-.search
-  height: 10rem
-  width: 100%
-  align-items: center
-  justify-content: space-between
-      
-.search__item
-  height: 8rem
-  padding: 1rem
-  font-size: 2.5rem
-  border-style: none
-  border-radius: 1.5rem
-
+@use '../mixins'
+ 
 .search-input
   &__field
-    padding-left: 5rem 
-    width: 80rem
-    background-color: vars.$search-field-bg-color
+    border-radius: 1.5rem
+    margin-bottom: 1rem
+    
+
+  &__container
+    flex-basis: 70%
+    font-size: 2.5rem 
+    @include mixins.md
+      flex-basis: 60%
+      font-size: 2rem
+    @include mixins.sm
+      font-size: 1.8rem
+      width: 100%
+
 
 .search-button
-  &__button
-    background: vars.$search-button-bg-color
-    width: 20rem
-    color: #fff
-    cursor: pointer
-    &:active
-      transform: translateY(.1rem)
+  flex-basis: 20%
+  box-shadow: 0 0 1rem -0.5rem #000000
+  border-radius: 1.5rem
+  font-size: 2.5rem
+  @include mixins.md
+    font-size: 2rem
+  @include mixins.xs
+    font-size: 1.8rem
+
+.search-errors
+  margin-bottom: 1rem
+  overflow-wrap: anywhere

@@ -1,4 +1,5 @@
 @use '../vars'
+@use '../mixins'
 
 .card
   display: grid
@@ -13,15 +14,21 @@
   border-radius: 1.5rem
   &:hover
     background-color: vars.$search-field-bg-color
+  @include mixins.md
+    font-size: 2.6rem
+  @include mixins.sm
+    font-size: 2.2rem
+  @include mixins.xs
+    font-size: 1.6rem
+    padding: .5rem
 
 .card__img  
   grid-area: img
-  height: 20rem
-  width: 100%
   border-radius: 1.5rem
-  padding-right: 1rem 
   background-color: #666666
-  
+  max-width: 20rem
+  width: 100%
+  height: auto
 
 .card__title
   grid-area: title
