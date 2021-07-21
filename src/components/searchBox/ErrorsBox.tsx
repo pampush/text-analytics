@@ -11,6 +11,11 @@ const _ErrorBox = styled.div`
   font-size: inherit;
 `;
 
+/**
+ * Component displays errors if validation is not passed
+ * @param params - message - error message, errors - wrong input characters  
+ * @returns JSX.Element
+ */
 function ErrorsBox({ message, errors }: ErrorsBoxProps) {
   return (
     <_ErrorBox>

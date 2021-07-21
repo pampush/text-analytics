@@ -20,4 +20,14 @@ export interface setMetaAction extends Action {
   payload: { id: number; lang: string; vowels: number; words: number };
 }
 
-export type textsActions = addTextAction | setLoadingAction | resetTextsAction | setMetaAction;
+export interface setErrorAction extends Action {
+  type: Types.SET_ERROR;
+  payload: string;
+}
+
+export type textsActions =
+  | addTextAction
+  | setLoadingAction
+  | resetTextsAction
+  | setMetaAction
+  | setErrorAction;

@@ -5,7 +5,7 @@ import { textsActions } from './actions';
 
 const initialState: TextsState = {
   items: {},
-  errors: {},
+  errors: '',
   loading: false,
 };
 
@@ -15,7 +15,6 @@ const reducer: Reducer<TextsState, textsActions> = (state = initialState, action
       return {
         ...state,
         items: { ...state.items, [action.payload.id]: action.payload.text },
-        loading: false,
       };
 
     case Types.RESET_TEXTS:
@@ -40,6 +39,12 @@ const reducer: Reducer<TextsState, textsActions> = (state = initialState, action
             lang: newText.lang,
           },
         },
+      };
+
+    case Types.SET_ERROR:
+      return {
+        ...state,
+        errors: action.payload,
       };
 
     default:

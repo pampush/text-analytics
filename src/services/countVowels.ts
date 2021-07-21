@@ -1,14 +1,17 @@
 import { default as dictionary } from '../resources/languagesMap.json';
-import { Text } from '../redux/texts/types';
+
 import { Languages } from '../types';
 
-export function countVowels(text: Text, lang: Languages) {
+export function countVowels(text: string, lang: Languages) {
   let vowels = 0;
-  console.log(dictionary);
 
-  const subject = text.text;
-  for (let i = 0; i < subject.length; i++) {
-    if (dictionary[lang].includes(subject[i])) vowels++;
+  try {
+    for (let i = 0; i < text.length; i++) {
+      if (dictionary[lang]?.includes(text[i])) vowels++;
+    }
+    return vowels;
+  } catch (e) {
+    console.error(e.message);
+    return 0;
   }
-  return vowels;
 }

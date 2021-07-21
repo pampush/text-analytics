@@ -6,9 +6,17 @@ import { AppState } from '../redux/';
 import ResultSkeleton from './ResultSkeleton';
 
 function ResultBox() {
-  const loading = useSelector((state: AppState) => state.texts.loading);
+  const { loading, items } = useSelector((state: AppState) => state.texts);
 
-  return <>{loading ? <ResultSkeleton /> : <ResultCard />}</>;
+  return (
+    <>
+      {loading
+        ? Array(3)
+            .fill(0)
+            .map((item, i) => <ResultSkeleton key={i} />)
+        : Object.entries(items).map(([id, data]) => <ResultCard key={id} {...data} />)}
+    </>
+  );
 }
 
 export default ResultBox;

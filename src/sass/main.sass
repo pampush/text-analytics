@@ -3,6 +3,7 @@
 @use './components/resultCard'
 @use 'vars'
 @use 'mixins'
+@use './components/notification'
 
 html
   font-size: 10px
@@ -20,7 +21,7 @@ body
   max-width: vars.$search-width-lg
   background-color: vars.$search-bg-color
   margin: 0 auto
-  padding: 2rem 5rem 0 5rem
+  padding: 2rem 5rem
   box-shadow: 0 0 1rem -0.5rem #000000
   @include mixins.md
     max-width: vars.$search-width-md

@@ -18,7 +18,7 @@ const detectLanguage = async (text: string): Promise<Languages> => {
     return Promise.resolve(result.data.detections[0][0].language) as Promise<Languages>;
   } catch (e) {
     console.error(e.message);
-    return Promise.reject(false);
+    throw new Error(e);
   }
 };
 

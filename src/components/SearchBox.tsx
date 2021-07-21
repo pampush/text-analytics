@@ -6,17 +6,29 @@ import { Action } from 'redux';
 
 import SearchButton from './searchBox/SearchButton';
 import SearchField from './searchBox/SearchField';
-import { fetchText, resetTexts, setMetaActionCrator } from '../redux/texts/actionCreators';
+import {
+  fetchText,
+  resetTexts,
+  setMetaActionCreator,
+  setLoading,
+  setErrorActionCreator,
+} from '../redux/texts/actionCreators';
 import { AppState } from '../redux';
 import { detectLanguage } from '../services/translateAPI';
 import { countVowels } from '../services/countVowels';
 import { Languages } from '../types';
+import { countWords } from '../services/countWords';
 
 function SearchBox() {
   const dispatch: ThunkDispatch<AppState, void, Action> = useDispatch();
   const [value, setValue] = React.useState<string>('');
   const [errors, setErrors] = React.useState<string[]>([]);
 
+  /**
+   *  Control input by value state of SearchBox
+   *  Validate string on each input change to detect errors
+   * @param text
+   */
   const handleChange = (text: string) => {
     const { incorrect } = validate(text);
 
@@ -25,21 +37,46 @@ function SearchBox() {
 
     setValue(text);
   };
+  console.log('render');
 
+  /**
+   * @description 1. Validate and return correct tokens
+   *  2. Filter duplicates
+   *  3. Reset previous redux texts state
+   *  4. Tell user that fetching has started
+   *  5. In loop iterate over ids and determine metainfo for each text. If request (fetchText or detectLanguage)
+   * was rejected, we skip current iteration and start next
+   *  6. Changing loading state to false indicates that fetching is over
+   */
   const handleClick = async () => {
     const { correct } = validate(value);
     const uniqueTextIds = Array.from(new Set(correct));
 
     dispatch(resetTexts());
-    for (const id of uniqueTextIds) {
-      const text = await dispatch(fetchText(id));
-      const lang: Languages = await detectLanguage(text.text);
-      const vowels = countVowels(text, lang);
+    dispatch(setLoading(true));
 
-      dispatch(setMetaActionCrator({ id, lang, vowels, words: 10 }));
+    for (const id of uniqueTextIds) {
+      try {
+        const textObject = await dispatch(fetchText(id));
+        const text = textObject.text.toLowerCase();
+        const lang: Languages = await detectLanguage(text);
+        const vowels = countVowels(text, lang);
+        const words = countWords(text);
+        dispatch(setMetaActionCreator({ id, lang, vowels, words }));
+      } catch (e) {
+        dispatch(setErrorActionCreator(`Ошибка запроса: ${e.message}`));
+        console.error(e.message);
+      }
     }
+
+    dispatch(setLoading(false));
   };
 
+  /**
+   * Define whether the unacceptable substrings are in input string
+   * @param str input string
+   * @returns correct - correct tokens, uncorrect - forbidden tokens
+   */
   const validate = (
     str: string,
   ): {
@@ -67,7 +104,6 @@ function SearchBox() {
       },
       { correct: [], incorrect: [] },
     );
-    console.log(result);
 
     return result;
   };
